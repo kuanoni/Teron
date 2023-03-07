@@ -1,6 +1,11 @@
 extends CharacterBody3D
 class_name MovementController
 
+@export_node_path("Node3D") var head_path := NodePath("Head")
+@onready var head: Node3D = get_node(head_path)
+@export_node_path("AnimationPlayer") var head_bob_animation_player_path := NodePath("HeadBobAnimationPlayer")
+@onready var head_bob_animation_player: AnimationPlayer = get_node(head_bob_animation_player_path)
+
 @export var gravity_multiplier := 3.0
 @export var speed := 5
 @export var acceleration := 8
@@ -27,6 +32,8 @@ func _physics_process(delta: float) -> void:
 	accelerate(delta)
 	
 	move_and_slide()
+	
+	head_bob()
 
 
 func direction_input() -> void:
@@ -55,3 +62,11 @@ func accelerate(delta: float) -> void:
 	
 	velocity.x = temp_vel.x
 	velocity.z = temp_vel.z
+
+func head_bob() -> void:
+	head_bob_animation_player.speed_scale = speed
+	
+	if direction != Vector3():
+		head_bob_animation_player.play("player_head_bob")
+	else:
+		head_bob_animation_player.speed_scale = speed * 2
