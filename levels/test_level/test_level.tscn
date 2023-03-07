@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://lg6ay5e5kbc0"]
+
+[ext_resource type="Script" path="res://levels/test_level/test_level.gd" id="1_ci4hh"]
+[ext_resource type="PackedScene" uid="uid://bbgcabwy2lqrm" path="res://entities/player/Player.tscn" id="2_5qr3m"]
+[ext_resource type="Material" uid="uid://sofvlrq3jmka" path="res://levels/test_level/M_Dark.tres" id="3_h7vmg"]
+[ext_resource type="PackedScene" uid="uid://cblmhdpahuj16" path="res://entities/lighter/Lighter.tscn" id="4_01d3k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k54fu"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pyv5d"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rckdb"]
+size = Vector3(10, 1, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_emcq1"]
+size = Vector3(10, 1, 2)
+
+[node name="TestLevel" type="Node3D"]
+script = ExtResource("1_ci4hh")
+
+[node name="Player" parent="." instance=ExtResource("2_5qr3m")]
+transform = Transform3D(-0.313412, 0, 0.949617, 0, 1, 0, -0.949617, 0, -0.313412, 1.48724, 0.99253, 0.699961)
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.84446, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.33699, 0)
+shape = SubResource("BoxShape3D_k54fu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.33699, 0)
+mesh = SubResource("BoxMesh_pyv5d")
+surface_material_override/0 = ExtResource("3_h7vmg")
+
+[node name="Wall1" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.02193, 5.47638)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.33699, -0.0293956)
+shape = SubResource("BoxShape3D_rckdb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Wall1/CollisionShape3D"]
+mesh = SubResource("BoxMesh_emcq1")
+skeleton = NodePath("../..")
+surface_material_override/0 = ExtResource("3_h7vmg")
+
+[node name="Lighter" parent="Geometry" instance=ExtResource("4_01d3k")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -2.98333, 0.0292611, 1.33994)
+
+[node name="Lighting" type="Node3D" parent="."]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Lighting"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.4132, -5.21301)
+light_color = Color(1, 1, 0.929412, 1)
+light_energy = 8.164
+spot_angle = 33.9482
+spot_angle_attenuation = 0.784583

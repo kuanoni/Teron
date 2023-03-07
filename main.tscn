@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://bljgbotjx7gwl"]
+
+[ext_resource type="PackedScene" uid="uid://bl3mw3do8hgu4" path="res://global/viewport/game_viewport.tscn" id="1_3r7ms"]
+[ext_resource type="PackedScene" uid="uid://d4hcck03ybncs" path="res://global/world.tscn" id="2_ofd35"]
+[ext_resource type="PackedScene" uid="uid://lg6ay5e5kbc0" path="res://levels/test_level/test_level.tscn" id="3_ocd7k"]
+
+[node name="Main" type="Node"]
+
+[node name="GameViewport" parent="." instance=ExtResource("1_3r7ms")]
+
+[node name="TestLevel" parent="GameViewport/PixelateViewportContainer/Viewport" index="1" instance=ExtResource("3_ocd7k")]
+
+[node name="World" parent="." instance=ExtResource("2_ofd35")]
+
+[editable path="GameViewport"]

@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://bbgcabwy2lqrm"]
+
+[ext_resource type="Script" path="res://entities/player/PlayerController.gd" id="1_daovo"]
+[ext_resource type="PackedScene" path="res://entities/player/Head.tscn" id="2_30qa1"]
+[ext_resource type="PackedScene" uid="uid://cblmhdpahuj16" path="res://entities/lighter/Lighter.tscn" id="3_8a1yk"]
+[ext_resource type="Script" path="res://entities/player/Hand.gd" id="3_wlbxy"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q67pf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ggroe"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_84kq1"]
+material = SubResource("StandardMaterial3D_ggroe")
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_daovo")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_q67pf")
+
+[node name="PlayerMesh" type="MeshInstance3D" parent="Collision"]
+mesh = SubResource("CapsuleMesh_84kq1")
+skeleton = NodePath("../..")
+
+[node name="Head" parent="." instance=ExtResource("2_30qa1")]
+
+[node name="Hand" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.410198, -0.149268, -0.570275)
+script = ExtResource("3_wlbxy")
+
+[node name="Lighter" parent="Hand" instance=ExtResource("3_8a1yk")]
+transform = Transform3D(0.176535, 0, 0.984294, 0, 1, 0, -0.984294, 0, 0.176535, 0.239262, -0.0752996, 0)
+starts_open = true
+
+[connection signal="toggle_lighter" from="Hand" to="Hand/Lighter" method="_on_hand_toggle_lighter"]
+
+[editable path="Head"]

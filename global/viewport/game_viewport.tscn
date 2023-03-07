@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://bl3mw3do8hgu4"]
+
+[ext_resource type="Shader" path="res://global/viewport/Pixelate.gdshader" id="1_5o5l8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x7wkp"]
+shader = ExtResource("1_5o5l8")
+shader_parameter/enabled = true
+shader_parameter/pixelSize = 2
+
+[node name="GameViewport" type="Node"]
+
+[node name="PixelateViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_x7wkp")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Viewport" type="SubViewport" parent="PixelateViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1280, 720)
+render_target_update_mode = 4
+
+[node name="CenterContainer" type="CenterContainer" parent="PixelateViewportContainer/Viewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="PixelateViewportContainer/Viewport/CenterContainer"]
+custom_minimum_size = Vector2(4, 4)
+layout_mode = 2
+color = Color(1, 1, 1, 0.101961)
