@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=2 format=3 uid="uid://d07mvq641b5eq"]
 
 [ext_resource type="Script" path="res://entities/player/Head.gd" id="1_6kcbi"]
 
