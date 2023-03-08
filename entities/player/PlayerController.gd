@@ -7,11 +7,9 @@ class_name MovementController
 @onready var head_bob_animation_player: AnimationPlayer = get_node(head_bob_animation_player_path)
 
 @export var gravity_multiplier := 3.0
-@export var speed := 5
-@export var acceleration := 8
-@export var deceleration := 10
-@export_range(0.0, 1.0, 0.05) var air_control := 0.3
-@export var jump_height := 10
+@export var speed := 4
+@export var acceleration := 2
+@export var deceleration := 5
 
 var direction := Vector3()
 var input_axis := Vector2()
@@ -55,9 +53,6 @@ func accelerate(delta: float) -> void:
 	else:
 		temp_accel = deceleration
 	
-	if not is_on_floor():
-		temp_accel *= air_control
-	
 	temp_vel = temp_vel.lerp(target, temp_accel * delta)
 	
 	velocity.x = temp_vel.x
@@ -65,7 +60,7 @@ func accelerate(delta: float) -> void:
 
 func head_bob() -> void:
 	head_bob_animation_player.speed_scale = speed
-	
+
 	if direction != Vector3():
 		head_bob_animation_player.play("player_head_bob")
 	else:
